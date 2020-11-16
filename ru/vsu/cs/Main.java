@@ -13,13 +13,13 @@ public class Main {
         double eps= readVariable("epsilon");
 
         double sumOfSequence = calculateSumOfSequence(x, numberOfMembers);
-        printResult("of N terms", sumOfSequence);
+        printResult("of N elements", sumOfSequence);
 
         double sumOfSequenceWithEpsilon = calculateSumOfSequenceWithEpsilon(x, numberOfMembers, eps);
-        printResult("of N terms of which the absolute value of more than epsilon", sumOfSequenceWithEpsilon);
+        printResult("of N elements whose absolute value exceeds epsilon", sumOfSequenceWithEpsilon);
 
         double sumOfSequenceWithEpsilonDividedBy10 = calculateSumOfSequenceWithEpsilon(x, numberOfMembers, eps / 10);
-        printResult("of N terms of which the absolute value of more than epsilon divided by 10",
+        printResult("of N elements whose absolute value exceeds epsilon divided by 10",
                 sumOfSequenceWithEpsilonDividedBy10);
 
         double sumOfSequenceWithMath = Math.cos(x);
@@ -32,24 +32,31 @@ public class Main {
         return scanner.nextDouble();
     }
     
-     private static double pow(double base, int index) {
+     private static double pow(double value, int powValue) {
         double result = 1;
-        for (int i = 0; i < index; i++) {
-            result *= base;
+        for (int i = 0; i < powValue; i++) {
+            result *= value;
         }
         return result;
     }
     
     private static int getFactorial(int value) {
         int result = 1
-        for (int i = 1; i <=  i++) {
+        for (int i = 1; i <= value; i++) {
             result = result * i;
         }
         return result;
     }
+    
+    private static double abs(double x) {
+        if (x < 0) 
+            return -x; 
+        else 
+            return x; 
+    }
 
-    private static double getNMemberOfSequence(double x, int n) {
-        double numerator = Math.pow(-1, n-1) * Math.pow(x, 2 * n - 2);
+    private static double getNthMemberOfSequence(double x, int n) {
+        double numerator = pow(-1, n-1) * pow(x, 2 * n - 2);
         double denominator = getFactorial(2 * n -2);
         return numerator / denominator;
     }
@@ -57,7 +64,7 @@ public class Main {
     private static double calculateSumOfSequence(double x, double numberOfMembers) {
         double sum = 0;
         for (int i = 0; i <= numberOfMembers; i++) {
-            sum += getNMemberOfSequence(x, i);
+            sum += getNthMemberOfSequence(x, i);
         }
         return sum;
     }
@@ -65,9 +72,9 @@ public class Main {
     private static double calculateSumOfSequenceWithEpsilon(double x, double numberOfMembers, double eps) {
         double sum = 0;
         for (int i = 0; i <= numberOfMembers; i++) {
-            double nMemberOfSequence = getNMemberOfSequence(x, i);
-            if (abs(nMemberOfSequence) > eps) {
-                sum = sum + getNMemberOfSequence(x, i);
+            double nthMemberOfSequence = getNthMemberOfSequence(x, i);
+            if (abs(nthMemberOfSequence) > eps) {
+                sum = sum + getNthMemberOfSequence(x, i);
             }
         }
         return sum;
