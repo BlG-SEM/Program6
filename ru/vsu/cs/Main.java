@@ -31,40 +31,40 @@ public class Main {
         System.out.printf("Enter %s: ", name);
         return scanner.nextDouble();
     }
-    
-     private static double pow(double value, int powValue) {
+
+    private static double calculatePower(double value, int powValue) {
         double result = 1;
         for (int i = 0; i < powValue; i++) {
-            result *= value;
+            result = result * value;
         }
         return result;
     }
-    
-    private static int getFactorial(int value) {
-        int result = 1
+
+    private static int calculateFactorial(int value) {
+        int result = 1;
         for (int i = 1; i <= value; i++) {
             result = result * i;
         }
         return result;
     }
-    
-    private static double abs(double x) {
-        if (x < 0) 
-            return -x; 
-        else 
-            return x; 
+
+    private static double calculateAbs(double x) {
+        if (x < 0)
+            return -x;
+        else
+            return x;
     }
 
-    private static double getNthMemberOfSequence(double x, int n) {
-        double numerator = pow(-1, n-1) * pow(x, 2 * n - 2);
-        double denominator = getFactorial(2 * n -2);
+    private static double calculateNthMemberOfSequence(double x, int n) {
+        double numerator = calculatePower(-1, n-1) * calculatePower(x, 2 * n - 2);
+        double denominator = calculateFactorial(2 * n -2);
         return numerator / denominator;
     }
 
     private static double calculateSumOfSequence(double x, double numberOfMembers) {
         double sum = 0;
         for (int i = 0; i <= numberOfMembers; i++) {
-            sum += getNthMemberOfSequence(x, i);
+            sum += calculateNthMemberOfSequence(x, i);
         }
         return sum;
     }
@@ -72,14 +72,13 @@ public class Main {
     private static double calculateSumOfSequenceWithEpsilon(double x, double numberOfMembers, double eps) {
         double sum = 0;
         for (int i = 0; i <= numberOfMembers; i++) {
-            double nthMemberOfSequence = getNthMemberOfSequence(x, i);
-            if (abs(nthMemberOfSequence) > eps) {
-                sum = sum + getNthMemberOfSequence(x, i);
+            if (calculateAbs(calculateNthMemberOfSequence(x, i)) > eps) {
+                sum = sum + calculateNthMemberOfSequence(x, i);
             }
         }
         return sum;
     }
-    
+
     private static void printResult(String text, double sum) {
         System.out.printf("The sum %s: %f\n", text, sum);
     }
